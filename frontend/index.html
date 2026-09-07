@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Document</title>
 </head>
+
 <body>
     <div class="top-panel">
         <div class="top-panel-containers" id="logo">
@@ -13,17 +15,28 @@
         </div>
 
         <div class="top-panel-containers" id="user-info">
-            <p>User Info</p>
+            <span>Max</span>
+            <span>github.com/your-username</span>
+            <span>Last deploy: 2 hours ago</span>
         </div>
+        
     </div>
     <div class="side-and-main-panel">
         <div class="side-panel">
             <div class="side-panel-containers" id="side-middle-section">
                 <ul>
-                    <button><li>Dashboard</li></button>
-                    <button><li>Analytics</li></button>
-                    <button><li>Dashboard</li></button>
-                    <button><li>Settings</li></button>
+                    <button>
+                        <li>Dashboard</li>
+                    </button>
+                    <button>
+                        <li>Analytics</li>
+                    </button>
+                    <button>
+                        <li>Dashboard</li>
+                    </button>
+                    <button>
+                        <li>Settings</li>
+                    </button>
                 </ul>
             </div>
 
@@ -31,23 +44,68 @@
                 <p>Logout</p>
             </div>
         </div>
-        <div class="main-panel">
-            <div class="main-panel-containers" id="apps">
-                <h1>apps</h1>
-                <p>tjpork</p>
+        
+
+        <!-- ===== MAIN PANELS ===== -->
+        <div class="main-section">
+            <!-- ===== SYSTEM HEALTH BAR ===== -->
+            <div class="health-bar">
+                <div class="health-item">
+                    <span class="health-dot health-online"></span>
+                    <span class="health-name">Node 1 (control-plane)</span>
+                    <span class="health-status">online</span>
+                </div>
+                <div class="health-item">
+                    <span class="health-dot health-online"></span>
+                    <span class="health-name">Node 2 (worker)</span>
+                    <span class="health-status">online</span>
+                </div>
+                <div class="health-item">
+                    <span class="health-dot health-degraded"></span>
+                    <span class="health-name">256GB HDD</span>
+                    <span class="health-status">85% used</span>
+                </div>
+                <div class="health-item">
+                    <span class="health-dot health-online"></span>
+                    <span class="health-name">k3s cluster</span>
+                    <span class="health-status">2/2 nodes</span>
+                </div>
             </div>
-            <div class="main-panel-containers" id="services">
-                <h1>services</h1>
-                <p>pi-hole</p>
+
+            <div class="main-panel">
+                <!-- deployed-apps -->
+                <div class="main-panel-containers" id="apps">
+                    <h1>deployed-apps</h1>
+                    <ul class="item-list" id="deployed-list">
+                        <!-- rendered by JavaScript -->
+                         <li>tjpork</li>
+                    </ul>
+                </div>
+
+                <!-- infrastructure -->
+                <div class="main-panel-containers" id="services">
+                    <h1>infrastructure</h1>
+                    <ul class="item-list" id="infra-list">
+                        <!-- rendered by JavaScript -->
+                         <li>Pi-hole</li>
+                    </ul>
+                </div>
+
+                <!-- portfolio -->
+                <div class="main-panel-containers" id="my-projects">
+                    <h1>portfolio</h1>
+                    <ul class="item-list" id="portfolio-list">
+                        <!-- rendered by JavaScript -->
+                         <li>Personal Website</li>
+                    </ul>
+                </div>
             </div>
-            <div class="main-panel-containers" id="my-projects">
-                <h1>my-projects</h1>  
-                <p>my-NAS</p>
-            </div>
+            
         </div>
 
     </div>
-    
-    
+
+
 </body>
+
 </html>
