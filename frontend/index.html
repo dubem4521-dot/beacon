@@ -11,7 +11,8 @@
 
 <body>
     <div class="top-panel">
-        <div class="top-panel-containers" id="logo">
+        <div class="top-panel-containers" style="display: flex; justify-content: space-between;" id="logo">
+            <img class="logo-image" src="../resources/images/beacon_logo.jpg" alt="logo">
             <p>beacon</p>
         </div>
 
@@ -27,16 +28,16 @@
         <div class="side-panel">
             <div class="side-panel-containers" id="side-middle-section">
                 <ul>
-                    <li><button class="nav-btn active" data-view="dashboard">Dashboard</button></li>
-                    <li><button class="nav-btn" data-view="analytics">Analytics</button></li>
-                    <li><button class="nav-btn" data-view="settings">Settings</button></li>
+                    <li><button class="nav-btn active" data-view="dashboard" ><img class="icon-image" src="../resources/icons/dashboard.png" alt="Dashboard"> Dashboard</button></li>
+                    <li><button class="nav-btn" data-view="analytics"><img class="icon-image" src="../resources/icons/analytics.png" alt="Analytics"> Analytics</button></li>
+                    <li><button class="nav-btn" data-view="settings"><img class="icon-image" src="../resources/icons/settings.png" alt="Settings"> Settings</button></li>
                     
                 </ul>
             </div>
 
             <div class="side-panel-containers" id="side-bottom-section">
                 <ul>
-                    <li><button class="nav-btn" data-view="logout">Logout</button></li>
+                    <li><button class="nav-btn" data-view="logout"><img class="icon-image" src="../resources/icons/logout.png" alt="Logout"> Logout</button></li>
                 </ul>
                 
             </div>
@@ -48,21 +49,25 @@
                 <!-- ===== SYSTEM HEALTH BAR ===== -->
                 <div class="health-bar">
                     <div class="health-item">
+                        <img class="icon-image" src="../resources/icons/nodes.png" alt="Health">
                         <span class="health-dot health-online"></span>
                         <span class="health-name">Node 1 (control-plane)</span>
                         <span class="health-status">online</span>
                     </div>
                     <div class="health-item">
+                        <img class="icon-image" src="../resources/icons/nodes.png" alt="Health">
                         <span class="health-dot health-online"></span>
                         <span class="health-name">Node 2 (worker)</span>
                         <span class="health-status">online</span>
                     </div>
                     <div class="health-item">
+                        <img class="icon-image" src="../resources/icons/HDD.png" alt="Health">
                         <span class="health-dot health-degraded"></span>
                         <span class="health-name">256GB HDD</span>
                         <span class="health-status">85% used</span>
                     </div>
                     <div class="health-item">
+                        <img class="icon-image" src="../resources/icons/K3s-cluster.png" alt="Health">
                         <span class="health-dot health-online"></span>
                         <span class="health-name">k3s cluster</span>
                         <span class="health-status">2/2 nodes</span>
@@ -72,30 +77,37 @@
                 <div class="main-panel">
                     <!-- deployed-apps -->
                     <div class="main-panel-containers" id="apps">
-                        <h1>deployed-apps</h1>
+                        
+                        <h1><img class="icon-image" src="../resources/icons/deployed-apps.png" alt="w">deployed-apps</h1>
                         <ul class="item-list" id="deployed-list">
                             <!-- rendered by JavaScript -->
 
                         </ul>
+                        <button class="status-btn" style="width: fit-content; margin-top: 10px;" >+</button>
                     </div>
 
                     <!-- infrastructure -->
                     <div class="main-panel-containers" id="services">
-                        <h1>infrastructure</h1>
+                        
+                        <h1><img class="icon-image" src="../resources/icons/infrastructure.png" alt="Infrastructure">infrastructure</h1>
                         <ul class="item-list" id="infra-list">
+                            
                             <!-- rendered by JavaScript -->
 
                         </ul>
+                        <button class="status-btn" style="width: fit-content; margin-top: 10px;" >+</button>
                     </div>
 
                     <!-- portfolio -->
                     <div class="main-panel-containers" id="my-projects">
-                        <h1>portfolio</h1>
-                        <ul class="item-list" id="portfolio-list">
                         
+                        <h1><img class="icon-image" src="../resources/icons/portfolio.png" alt="Portfolio">portfolio</h1>
+                        <ul class="item-list" id="portfolio-list">
+                            
                             <!-- rendered by JavaScript -->
 
                         </ul>
+                        <button class="status-btn" style="width: fit-content; margin-top: 10px;" >+</button>
                     </div>
                 </div>
 

@@ -8,6 +8,40 @@ body {
     padding: 20px;
 }
 
+.logo-image {
+    width: 70px;
+    height: 70px;
+}
+
+.logo-image:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
+.side-panel ul li button {
+    display: flex; 
+    align-items: center; 
+    gap: 10px;
+}
+
+.icon-image {
+    width: 25px;
+    height: 25px;
+}
+
+.main-panel-containers h1 {
+  display: flex; 
+  align-items: center; 
+  gap: 10px;
+}
+
+.icon-image:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
+}
+
 .top-panel {
     background-color: #161821;
     border-radius: 20px;
