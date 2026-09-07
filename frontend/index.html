@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
     <title>Document</title>
 </head>
 
@@ -19,89 +20,135 @@
             <span>github.com/your-username</span>
             <span>Last deploy: 2 hours ago</span>
         </div>
-        
+
     </div>
+
     <div class="side-and-main-panel">
         <div class="side-panel">
             <div class="side-panel-containers" id="side-middle-section">
                 <ul>
-                    <button>
-                        <li>Dashboard</li>
-                    </button>
-                    <button>
-                        <li>Analytics</li>
-                    </button>
-                    <button>
-                        <li>Dashboard</li>
-                    </button>
-                    <button>
-                        <li>Settings</li>
-                    </button>
+                    <li><button class="nav-btn active" data-view="dashboard">Dashboard</button></li>
+                    <li><button class="nav-btn" data-view="analytics">Analytics</button></li>
+                    <li><button class="nav-btn" data-view="settings">Settings</button></li>
+                    
                 </ul>
             </div>
 
             <div class="side-panel-containers" id="side-bottom-section">
-                <p>Logout</p>
+                <ul>
+                    <li><button class="nav-btn" data-view="logout">Logout</button></li>
+                </ul>
+                
             </div>
         </div>
-        
 
-        <!-- ===== MAIN PANELS ===== -->
-        <div class="main-section">
-            <!-- ===== SYSTEM HEALTH BAR ===== -->
-            <div class="health-bar">
-                <div class="health-item">
-                    <span class="health-dot health-online"></span>
-                    <span class="health-name">Node 1 (control-plane)</span>
-                    <span class="health-status">online</span>
+        <section id="view-dashboard" class="view active">
+            <!-- ===== MAIN PANELS ===== -->
+            <div class="main-section">
+                <!-- ===== SYSTEM HEALTH BAR ===== -->
+                <div class="health-bar">
+                    <div class="health-item">
+                        <span class="health-dot health-online"></span>
+                        <span class="health-name">Node 1 (control-plane)</span>
+                        <span class="health-status">online</span>
+                    </div>
+                    <div class="health-item">
+                        <span class="health-dot health-online"></span>
+                        <span class="health-name">Node 2 (worker)</span>
+                        <span class="health-status">online</span>
+                    </div>
+                    <div class="health-item">
+                        <span class="health-dot health-degraded"></span>
+                        <span class="health-name">256GB HDD</span>
+                        <span class="health-status">85% used</span>
+                    </div>
+                    <div class="health-item">
+                        <span class="health-dot health-online"></span>
+                        <span class="health-name">k3s cluster</span>
+                        <span class="health-status">2/2 nodes</span>
+                    </div>
                 </div>
-                <div class="health-item">
-                    <span class="health-dot health-online"></span>
-                    <span class="health-name">Node 2 (worker)</span>
-                    <span class="health-status">online</span>
+
+                <div class="main-panel">
+                    <!-- deployed-apps -->
+                    <div class="main-panel-containers" id="apps">
+                        <h1>deployed-apps</h1>
+                        <ul class="item-list" id="deployed-list">
+                            <!-- rendered by JavaScript -->
+
+                        </ul>
+                    </div>
+
+                    <!-- infrastructure -->
+                    <div class="main-panel-containers" id="services">
+                        <h1>infrastructure</h1>
+                        <ul class="item-list" id="infra-list">
+                            <!-- rendered by JavaScript -->
+
+                        </ul>
+                    </div>
+
+                    <!-- portfolio -->
+                    <div class="main-panel-containers" id="my-projects">
+                        <h1>portfolio</h1>
+                        <ul class="item-list" id="portfolio-list">
+                            <!-- rendered by JavaScript -->
+
+                        </ul>
+                    </div>
                 </div>
-                <div class="health-item">
-                    <span class="health-dot health-degraded"></span>
-                    <span class="health-name">256GB HDD</span>
-                    <span class="health-status">85% used</span>
-                </div>
-                <div class="health-item">
-                    <span class="health-dot health-online"></span>
-                    <span class="health-name">k3s cluster</span>
-                    <span class="health-status">2/2 nodes</span>
-                </div>
+
             </div>
 
-            <div class="main-panel">
-                <!-- deployed-apps -->
-                <div class="main-panel-containers" id="apps">
-                    <h1>deployed-apps</h1>
-                    <ul class="item-list" id="deployed-list">
-                        <!-- rendered by JavaScript -->
-                         <li>tjpork</li>
-                    </ul>
+        </section>
+        <!-- ANALYTICS VIEW -->
+        <section id="view-analytics" class="view">
+            <h2>📊 Analytics</h2>
+            <p>Coming soon — this will show deployment metrics, uptime, and cluster stats.</p>
+            <div class="analytics-placeholder">
+                <div class="stat-card">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Deployed Apps</span>
                 </div>
-
-                <!-- infrastructure -->
-                <div class="main-panel-containers" id="services">
-                    <h1>infrastructure</h1>
-                    <ul class="item-list" id="infra-list">
-                        <!-- rendered by JavaScript -->
-                         <li>Pi-hole</li>
-                    </ul>
+                <div class="stat-card">
+                    <span class="stat-number">99.8%</span>
+                    <span class="stat-label">Uptime</span>
                 </div>
-
-                <!-- portfolio -->
-                <div class="main-panel-containers" id="my-projects">
-                    <h1>portfolio</h1>
-                    <ul class="item-list" id="portfolio-list">
-                        <!-- rendered by JavaScript -->
-                         <li>Personal Website</li>
-                    </ul>
+                <div class="stat-card">
+                    <span class="stat-number">4</span>
+                    <span class="stat-label">Infra Services</span>
                 </div>
             </div>
-            
-        </div>
+        </section>
+
+        <!-- SETTINGS VIEW -->
+        <section id="view-settings" class="view">
+            <h2>⚙️ Settings</h2>
+            <p>Dashboard preferences: theme, refresh interval, etc.</p>
+            <div class="settings-group">
+                <label>
+                    <input type="checkbox" checked> Auto-refresh status
+                </label>
+                <label>
+                    <input type="checkbox"> Dark mode (always)
+                </label>
+                <label>
+                    Refresh interval:
+                    <select>
+                        <option>30s</option>
+                        <option selected>60s</option>
+                        <option>5m</option>
+                    </select>
+                </label>
+            </div>
+        </section>
+
+        <!-- LOGOUT VIEW (optional) -->
+        <section id="view-logout" class="view">
+            <h2>👋 See you later!</h2>
+            <p>You've been logged out. (Just a demo, no real auth yet.)</p>
+        </section>
+
 
     </div>
 
