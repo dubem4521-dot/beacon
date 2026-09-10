@@ -165,7 +165,7 @@ body {
 .side-panel ul button.active {
     background-color: #1c1f2b;
     color: #ffffff;
-    border-left: 3px solid #00d2aa;
+    border-left: 3px solid #c92121;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 }
 
