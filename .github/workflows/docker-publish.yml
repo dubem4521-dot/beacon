@@ -20,13 +20,13 @@ on:
               username: ${{ secrets.DOCKER_USERNAME }}
               password: ${{ secrets.DOCKER_PASSWORD }}
 
-              - name: Build and push Docker image
-                uses: docker/build-push-action@v6
-                with:
-                  context: .
-                  push: true
-                  tags: |
-                    rustytoothpickk/beacon:latest
-                    rustytoothpickk/beacon:${{ github.sha }}
-                  cache-from: type=gha
-                  cache-to: type=gha,mode=max
+          - name: Build and push Docker image
+            uses: docker/build-push-action@v6
+            with:
+              context: .
+              push: true
+              tags: |
+                rustytoothpickk/beacon:latest
+                rustytoothpickk/beacon:${{ github.sha }}
+              cache-from: type=gha
+              cache-to: type=gha,mode=max
