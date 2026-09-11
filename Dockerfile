@@ -4,7 +4,7 @@ FROM nginx:alpine
 COPY ./frontend/ /usr/share/nginx/html/
 
 # Copy any other resources (like images)
-COPY ./resources/ /usr/share/nginx/html/
+COPY ./resources/ /usr/share/nginx/html/resources/
 
 # Expose port 80 to the outside world
 EXPOSE 80
