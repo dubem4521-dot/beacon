@@ -25,7 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderStatus();
   setupAddItemModal();
+  setupConfirmModal(); 
 });
+
 
 // STATUS DATA
 
@@ -64,24 +66,41 @@ function renderList(listKey) {
   const el = document.getElementById(listElementIds[listKey]);
   if (!el) return;
 
-  el.innerHTML = statusData[listKey].map(item => {
+  el.innerHTML = statusData[listKey].map((item, index) => {
     const icon = item.icon
       ? `<img class="item-icon" src="${item.icon}" alt="">`
       : '';
-    const nameContent = item.url
-      ? `<a href="${item.url}" target="_blank" rel="noopener">${item.name}</a>`
-      : item.name;
 
     return `
-      <li class="status-item"><button class="status-btn" data-name="${item.name}">
-        <span class="status-dot ${statusClassMap[item.status]}"></span>
-        ${icon}
-        ${nameContent}
-        <span class="status-label">${item.label}</span>
-      </button></li>
+      <li class="status-item">
+        <button class="status-btn" data-name="${item.name}" data-url="${item.url || ''}">
+          <span class="status-dot ${statusClassMap[item.status]}"></span>
+          ${icon}
+          ${item.name}
+          <span class="status-label">${item.label}</span>
+        </button>
+        <button class="remove-btn" data-list="${listKey}" data-index="${index}">&times;</button>
+      </li>
     `;
   }).join('');
 }
+
+
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.status-btn');
+  if (btn && btn.dataset.url) {
+    window.open(btn.dataset.url, '_blank', 'noopener');
+  }
+
+  //remove item button
+  const removeBtn = e.target.closest('.remove-btn');
+  if (removeBtn) {
+    const listKey = removeBtn.dataset.list;
+    const index = Number(removeBtn.dataset.index);
+    const itemName = removeBtn.closest('.status-item').querySelector('.status-btn').dataset.name;
+    openConfirmModal(listKey, index, itemName);
+  }
+});
 
 function renderStatus() {
   renderList('deployed');
@@ -156,4 +175,39 @@ function setupAddItemModal() {
     renderList(activeList);
     closeModal();
   });
+}
+
+let pendingDelete = null; // { listKey, index }
+
+function setupConfirmModal() {
+  const modal = document.getElementById('confirm-modal');
+  const message = document.getElementById('confirm-message');
+  const cancelBtn = document.getElementById('confirm-cancel-btn');
+  const deleteBtn = document.getElementById('confirm-delete-btn');
+
+  function closeModal() {
+    modal.style.display = 'none';
+    pendingDelete = null;
+  }
+
+  cancelBtn.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  deleteBtn.addEventListener('click', () => {
+    if (!pendingDelete) return;
+    const { listKey, index } = pendingDelete;
+    statusData[listKey].splice(index, 1);
+    renderList(listKey);
+    closeModal();
+  });
+
+  // expose a helper to open it from the main click listener below
+  window.openConfirmModal = (listKey, index, itemName) => {
+    pendingDelete = { listKey, index };
+    message.textContent = `Remove "${itemName}" from the list?`;
+    modal.style.display = 'flex';
+  };
 }

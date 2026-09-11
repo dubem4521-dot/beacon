@@ -88,7 +88,8 @@
                             <!-- rendered by JavaScript -->
 
                         </ul>
-                        <button class="add-item-btn" data-list="deployed" style="width: fit-content; margin-top: 10px;">+</button>
+                        <button class="add-item-btn" data-list="deployed"
+                            style="width: fit-content; margin-top: 10px;">+</button>
                     </div>
 
                     <!-- infrastructure -->
@@ -101,7 +102,8 @@
                             <!-- rendered by JavaScript -->
 
                         </ul>
-                        <button class="add-item-btn" data-list="infrastructure" style="width: fit-content; margin-top: 10px;">+</button>
+                        <button class="add-item-btn" data-list="infrastructure"
+                            style="width: fit-content; margin-top: 10px;">+</button>
                     </div>
 
                     <!-- portfolio -->
@@ -114,7 +116,8 @@
                             <!-- rendered by JavaScript -->
 
                         </ul>
-                        <button class="add-item-btn" data-list="portfolio" style="width: fit-content; margin-top: 10px;">+</button>
+                        <button class="add-item-btn" data-list="portfolio"
+                            style="width: fit-content; margin-top: 10px;">+</button>
                     </div>
                 </div>
 
@@ -182,6 +185,18 @@
             <div class="modal-actions">
                 <button id="modal-cancel-btn">Cancel</button>
                 <button id="modal-save-btn">Add</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== ITEM DELETE CONFIRMATION MODAL ===== -->
+    <div id="confirm-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-box">
+            <h2>Remove Item</h2>
+            <p id="confirm-message" style="color:#b0b6c4; font-size:13px; margin:0;"></p>
+            <div class="modal-actions">
+                <button id="confirm-cancel-btn">Cancel</button>
+                <button id="confirm-delete-btn" style="background:#e2472c; color:#fff;">Remove</button>
             </div>
         </div>
     </div>

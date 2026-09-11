@@ -461,6 +461,30 @@ body {
   transform: translateY(-1px);
 }
 
+.status-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.remove-btn {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  font-size: 16px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.remove-btn:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #e2472c;
+}
+
 /* ===== JAVASCRIPT ELEMENTS ===== */
 .status-btn {
   background-color: #1c1f2b;
