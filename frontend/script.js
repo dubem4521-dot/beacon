@@ -4,18 +4,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const navButtons = document.querySelectorAll('.nav-btn');
   const views = document.querySelectorAll('.view');
 
-  console.log('Nav buttons found:', navButtons.length);
-  console.log('Views found:', views.length);
-
   function switchView(viewId) {
-    console.log('Switching to:', viewId);
-
-    // Update nav buttons
     navButtons.forEach(btn => {
       btn.classList.toggle('active', btn.dataset.view === viewId);
     });
-
-    // Update views
     views.forEach(view => {
       view.classList.toggle('active', view.id === `view-${viewId}`);
     });
@@ -24,22 +16,19 @@ document.addEventListener('DOMContentLoaded', () => {
   navButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       const viewId = btn.dataset.view;
-      console.log('Button clicked:', viewId);
-
-      // Logout isn't a view — handle it separately
       if (viewId === 'logout') {
-        console.log('Logout triggered');
-        // handleLogout();
         return;
       }
-
       switchView(viewId);
     });
   });
+
+  renderStatus();
+  setupAddItemModal();
 });
 
+// STATUS DATA
 
-// RENDER STATUS ITEMS WITH DOTS
 const statusData = {
   deployed: [
     { name: 'tjpork', status: 'running', label: 'running' },
@@ -64,46 +53,107 @@ const statusClassMap = {
   docs: 'status-docs'
 };
 
-function renderStatus() {
-  // deployed-apps
-  const deployedList = document.getElementById('deployed-list');
-  if (deployedList) {
-    deployedList.innerHTML = statusData.deployed.map(item => `
-      <li class="status-item"><button class="status-btn" data-name="${item.name}">
-        <span class="status-dot ${statusClassMap[item.status]}"></span>
-        ${item.name}
-        <span class="status-label">${item.label}</span>
-      </li>
-    `).join('');
-  }
+// map each list key to its <ul> id
+const listElementIds = {
+  deployed: 'deployed-list',
+  infrastructure: 'infra-list',
+  portfolio: 'portfolio-list'
+};
 
-  // infrastructure
-  const infraList = document.getElementById('infra-list');
-  if (infraList) {
-    infraList.innerHTML = statusData.infrastructure.map(item => `
-      <li class="status-item"><button class="status-btn" data-name="${item.name}">
-        <span class="status-dot ${statusClassMap[item.status]}"></span>
-        ${item.name}
-        <span class="status-label">${item.label}</span>
-      </li>
-    `).join('');
-  }
+function renderList(listKey) {
+  const el = document.getElementById(listElementIds[listKey]);
+  if (!el) return;
 
-  // portfolio
-  const portfolioList = document.getElementById('portfolio-list');
-  if (portfolioList) {
-    portfolioList.innerHTML = statusData.portfolio.map(item => `
+  el.innerHTML = statusData[listKey].map(item => {
+    const icon = item.icon
+      ? `<img class="item-icon" src="${item.icon}" alt="">`
+      : '';
+    const nameContent = item.url
+      ? `<a href="${item.url}" target="_blank" rel="noopener">${item.name}</a>`
+      : item.name;
+
+    return `
       <li class="status-item"><button class="status-btn" data-name="${item.name}">
         <span class="status-dot ${statusClassMap[item.status]}"></span>
-        ${item.name}
+        ${icon}
+        ${nameContent}
         <span class="status-label">${item.label}</span>
-      </li>
-    `).join('');
-  }
+      </button></li>
+    `;
+  }).join('');
 }
 
-// RUN ON PAGE LOAD
+function renderStatus() {
+  renderList('deployed');
+  renderList('infrastructure');
+  renderList('portfolio');
+}
 
-document.addEventListener('DOMContentLoaded', () => {
-  renderStatus();
-});
+// ADD ITEM MODAL
+
+function setupAddItemModal() {
+  const modal = document.getElementById('add-item-modal');
+  const nameInput = document.getElementById('new-item-name');
+  const urlInput = document.getElementById('new-item-url');
+  const saveBtn = document.getElementById('modal-save-btn');
+  const cancelBtn = document.getElementById('modal-cancel-btn');
+
+  let activeList = null; // which list we're adding to
+
+  function openModal(listKey) {
+    activeList = listKey;
+    nameInput.value = '';
+    urlInput.value = '';
+    modal.style.display = 'flex';
+    nameInput.focus();
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+    activeList = null;
+  }
+
+  // wire up all "+" buttons
+  document.querySelectorAll('.add-item-btn').forEach(btn => {
+    btn.addEventListener('click', () => openModal(btn.dataset.list));
+  });
+
+  cancelBtn.addEventListener('click', closeModal);
+
+  // close if clicking the dark overlay itself
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  saveBtn.addEventListener('click', () => {
+    const name = nameInput.value.trim();
+    let url = urlInput.value.trim();
+    if (!name || !activeList) return;
+
+    // prepend https:// if the user forgot it
+    if (url && !/^https?:\/\//i.test(url)) {
+      url = 'https://' + url;
+    }
+
+    let icon = '';
+    if (url) {
+      try {
+        const domain = new URL(url).hostname;
+        icon = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+      } catch (e) {
+        icon = '';
+      }
+    }
+
+    statusData[activeList].push({
+      name,
+      url: url || null,
+      icon,
+      status: 'planned',
+      label: 'planned'
+    });
+
+    renderList(activeList);
+    closeModal();
+  });
+}
