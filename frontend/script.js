@@ -31,22 +31,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // STATUS DATA
 
-const statusData = {
-  deployed: [
-    { name: 'tjpork', status: 'running', label: 'running' },
-    { name: 'beacon-api', status: 'deploying', label: 'deploying' },
-    { name: 'beacon-cluster', status: 'planned', label: 'planned' }
-  ],
-  infrastructure: [
-    { name: 'Pi-hole (DNS)', status: 'running', label: 'running' },
-    { name: 'k3s server (node1)', status: 'running', label: 'running' },
-    { name: 'k3s agent (node2)', status: 'deploying', label: 'joining' }
-  ],
-  portfolio: [
-    { name: 'my-NAS', status: 'docs', label: 'docs ready' },
-    { name: 'beacon (you are here)', status: 'running', label: 'active' }
-  ]
-};
+async function loadItems() {
+  const res = await fetch('http://localhost:8000/items');
+  const items = await res.json();
+  
+  // Group by category
+  const deployed = items.filter(i => i.category === 'deployed-apps');
+  const infra = items.filter(i => i.category === 'infrastructure');
+  const portfolio = items.filter(i => i.category === 'portfolio');
+  
+  // Render each group
+  renderList('deployed-list', deployed);
+  renderList('infra-list', infra);
+  renderList('portfolio-list', portfolio);
+}
 
 const statusClassMap = {
   running: 'status-running',
