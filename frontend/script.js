@@ -1,7 +1,7 @@
 // ========================================
 // CONFIG
 // ========================================
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'http://192.168.110.33:8000';
 
 // Map list key → <ul> id
 const listElementIds = {
