@@ -80,20 +80,20 @@ async function loadItems() {
     renderList(key, listItems);
   }
 }
-
 function getFaviconUrl(item) {
   if (!item.url) return '';
   try {
-    const hostname = safeHostname(item.url);
-    const isPrivate = /^(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)/.test(hostname);
+    const parsed = new URL(item.url);
+    const isPrivate = /^(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)/.test(parsed.hostname);
 
     return isPrivate
-      ? `${item.url.replace(/\/$/, '')}/favicon.ico`        // fetch directly from the local service
-      : `https://www.google.com/s2/favicons?domain=${hostname}&sz=32`; // use Google's proxy for public sites
+      ? `${parsed.origin}/favicon.ico`  // origin strips any path, keeping protocol+host+port only
+      : `https://www.google.com/s2/favicons?domain=${parsed.hostname}&sz=32`;
   } catch {
     return '';
   }
 }
+
 
 function renderList(listKey, items) {
   const el = document.getElementById(listElementIds[listKey]);
