@@ -81,17 +81,28 @@ async function loadItems() {
   }
 }
 
+function getFaviconUrl(item) {
+  if (!item.url) return '';
+  try {
+    const hostname = safeHostname(item.url);
+    const isPrivate = /^(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)/.test(hostname);
+
+    return isPrivate
+      ? `${item.url.replace(/\/$/, '')}/favicon.ico`        // fetch directly from the local service
+      : `https://www.google.com/s2/favicons?domain=${hostname}&sz=32`; // use Google's proxy for public sites
+  } catch {
+    return '';
+  }
+}
+
 function renderList(listKey, items) {
   const el = document.getElementById(listElementIds[listKey]);
   if (!el) return;
 
   el.innerHTML = items.map((item) => {
-    const favicon = item.url
-      ? `https://www.google.com/s2/favicons?domain=${safeHostname(item.url)}&sz=32`
-      : '';
-
+    const favicon = getFaviconUrl(item);
     const icon = favicon
-      ? `<img class="item-icon" src="${favicon}" alt="">`
+      ? `<img class="item-icon" src="${favicon}" alt="" onerror="this.style.display='none'">`
       : '';
 
     return `
