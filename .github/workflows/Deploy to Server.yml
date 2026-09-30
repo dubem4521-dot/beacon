@@ -2,13 +2,13 @@ name: Deploy To Home Lab Server
 
 on:
   workflow_run:
-    workflows: [ Publish Beacon Docker Image To Docker Hub ]
+    workflows: [ "Publish Beacon Docker Image To Docker Hub" ]
     types:
      - completed
     
 jobs:
   Deploy:
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
