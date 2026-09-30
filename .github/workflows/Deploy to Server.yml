@@ -1,0 +1,34 @@
+name: Deploy To Home Lab Server
+
+on:
+  workflow_run:
+    workflows: [ Publish Beacon Docker Image To Docker Hub ]
+    types:
+     - completed
+    
+jobs:
+  Deploy:
+    runs_on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion = 'success' }}
+
+    steps:
+      - name: Login to Tailscale
+        uses: tailscale/guthub-action@v2
+        with:
+          authkey: ${{ secrets.TS_AUTHKEY }}
+
+      - name: SSH and Redeploy
+        uses: appleboy/ssh-action@v1.0.3 
+        with:
+          username: ${{ secrets.SERVER_USER }}
+          host: ${{ secrets.SERVER_HOST }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 22
+          script: |
+            cd /srv/share/docker/beacon-app
+            docker compose pull
+            docker compose up -d
+
+
+
+        
