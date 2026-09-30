@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Login to Tailscale
-        uses: tailscale/guthub-action@v2
+        uses: tailscale/github-action@v2
         with:
           authkey: ${{ secrets.TS_AUTHKEY }}
 
